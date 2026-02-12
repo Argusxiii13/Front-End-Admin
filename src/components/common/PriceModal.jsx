@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const PriceModal = ({ isOpen, onConfirm, onCancel, updatePrice, booking}) => {
+const PriceModal = ({ isOpen, onConfirm, onCancel, updatePrice, booking }) => {
     const [price, setPrice] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -49,7 +49,7 @@ const PriceModal = ({ isOpen, onConfirm, onCancel, updatePrice, booking}) => {
                     <button
                         className={`modal-button-green ${!price.trim() || isNaN(price) || parseFloat(price) <= 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={handleConfirm}
-                        disabled={!price.trim() || isNaN(price) || parseFloat(price) <= 0 || booking.price != 0}
+                        disabled={!price.trim() || isNaN(price) || parseFloat(price) <= 0 || (booking?.price ?? 0) != 0}
                     >
                         Confirm Price
                     </button>

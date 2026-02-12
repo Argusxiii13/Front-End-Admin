@@ -32,9 +32,17 @@ const EarningsMadeToday = () => {
         const fetchEarnings = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/admin/dashboard/earnings-today`);
-                setEarnings(response.data);
+                const earningsData = response.data;
+                setEarnings(earningsData);
+                console.log('EarningsMadeToday: earnings-today payload', earningsData);
+                if (Array.isArray(earningsData) && earningsData.length === 0) {
+                    console.warn('EarningsMadeToday: earnings-today returned empty list');
+                } else {
+                    const count = Array.isArray(earningsData) ? earningsData.length : 'non-array';
+                    console.log('EarningsMadeToday: earnings-today fetched', count);
+                }
             } catch (err) {
-                console.error('Error fetching earnings:', err);
+                console.error('EarningsMadeToday: error fetching earnings-today', err);
                 setError('Failed to load earnings');
             } finally {
                 setIsLoading(false);

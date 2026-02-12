@@ -33,9 +33,17 @@ const OngoingBookings = () => {
         const fetchBookings = async () => {
             try {
                 const bookingResponse = await axios.get(`${apiUrl}/api/admin/dashboard/booking-today?role=${encodeURIComponent(role)}`);
-                setBookings(bookingResponse.data);
+                const bookingData = bookingResponse.data;
+                setBookings(bookingData);
+                console.log('OngoingBookings: booking-today payload', bookingData);
+                if (Array.isArray(bookingData) && bookingData.length === 0) {
+                    console.warn('OngoingBookings: booking-today returned empty list');
+                } else {
+                    const count = Array.isArray(bookingData) ? bookingData.length : 'non-array';
+                    console.log('OngoingBookings: booking-today fetched', count);
+                }
             } catch (err) {
-                console.error('Error fetching bookings:', err);
+                console.error('OngoingBookings: error fetching booking-today', err);
                 setError('Failed to load bookings');
             }
         };
@@ -43,9 +51,17 @@ const OngoingBookings = () => {
         const fetchCars = async () => {
             try {
                 const carResponse = await axios.get(`${apiUrl}/api/admin/dashboard/cars-details?role=${encodeURIComponent(role)}`);
-                setCars(carResponse.data);
+                const carsData = carResponse.data;
+                setCars(carsData);
+                console.log('OngoingBookings: cars-details payload', carsData);
+                if (Array.isArray(carsData) && carsData.length === 0) {
+                    console.warn('OngoingBookings: cars-details returned empty list');
+                } else {
+                    const count = Array.isArray(carsData) ? carsData.length : 'non-array';
+                    console.log('OngoingBookings: cars-details fetched', count);
+                }
             } catch (err) {
-                console.error('Error fetching cars:', err);
+                console.error('OngoingBookings: error fetching cars-details', err);
                 setError('Failed to load car details');
             }
         };

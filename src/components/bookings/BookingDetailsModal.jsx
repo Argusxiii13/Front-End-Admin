@@ -510,7 +510,7 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
                         onConfirm={handlePriceConfirm}
                         onCancel={() => setPriceModalOpen(false)}
                         updatePrice={onStatusUpdate}
-                        currentBooking ={booking}
+                        booking={currentBooking}
                     />
                     {/* Finish Modal */}
                     <FinishModal
