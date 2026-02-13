@@ -22,6 +22,7 @@ const Profile = () => {
     const handleLogout = () => {
         localStorage.removeItem('authToken'); // Clear the token
         localStorage.removeItem('adminInfo'); // Clear the admin info
+        localStorage.removeItem('demoMode'); // Clear demo mode state
         navigate('/login'); // Redirect to login page
     };
 

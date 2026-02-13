@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_API_URL;
+const DEMO_EMAIL = 'autoconnectdemo13@gmail.com';
 
 const OTPLoginPage = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
+  const [demoEmail, setDemoEmail] = useState('');
   const [error, setError] = useState('');
+  const [demoLoading, setDemoLoading] = useState(false);
+  const [showDemoOverlay, setShowDemoOverlay] = useState(false);
   const [otpSendStatus, setOtpSendStatus] = useState({
     sending: false,
     canSend: true,
@@ -28,6 +32,14 @@ const OTPLoginPage = () => {
     }
     return () => clearInterval(timer);
   }, [otpSendStatus.cooldownRemaining]);
+
+  useEffect(() => {
+    const overlayTimer = setTimeout(() => {
+      setShowDemoOverlay(true);
+    }, 900);
+
+    return () => clearTimeout(overlayTimer);
+  }, []);
 
   const handleSendOTP = async () => {
 
@@ -78,9 +90,54 @@ const OTPLoginPage = () => {
     }
   };
 
+  const handleDemoProceed = async (e) => {
+    e.preventDefault();
+    setError('');
+    setDemoLoading(true);
+
+    const normalizedEmail = demoEmail.trim().toLowerCase();
+
+    if (normalizedEmail !== DEMO_EMAIL) {
+      setError(`For demo access, please enter ${DEMO_EMAIL}`);
+      setDemoLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.get(`${apiUrl}/api/admin/admins`);
+      const admins = Array.isArray(response.data) ? response.data : [];
+
+      if (!admins.length) {
+        throw new Error('No admin accounts available for demo mode.');
+      }
+
+      const universalDemoAccount = admins[0];
+
+      localStorage.setItem('demoMode', 'true');
+      localStorage.setItem('authToken', universalDemoAccount.last_token || 'demo-session');
+      localStorage.setItem('adminInfo', JSON.stringify({
+        admin_id: universalDemoAccount.id,
+        admin_name: universalDemoAccount.name,
+        admin_role: universalDemoAccount.role,
+        id: universalDemoAccount.id,
+        name: universalDemoAccount.name,
+        role: universalDemoAccount.role,
+        email: universalDemoAccount.email,
+        picture: universalDemoAccount.picture,
+      }));
+
+      navigate('/overview');
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || 'Failed to initialize demo account');
+      console.error('Demo account initialization error:', err);
+    } finally {
+      setDemoLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-      <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-xl">
+      <div className="relative overflow-hidden w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-xl">
         <h2 className="text-2xl font-bold mb-6 text-center text-white">OTP Login</h2>
         
         {error && (
@@ -141,6 +198,38 @@ const OTPLoginPage = () => {
             {loginLoading ? 'Verifying...' : 'Attempt Login'}
           </button>
         </form>
+
+        <div
+          className={`absolute inset-0 bg-gray-900/95 backdrop-blur-sm p-8 flex flex-col justify-center transition-all duration-700 ${
+            showDemoOverlay ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+          }`}
+        >
+          <h3 className="text-xl font-bold text-white text-center mb-2">Demo Access</h3>
+          <p className="text-sm text-gray-300 text-center mb-5">
+            This live view keeps the original OTP login for production, but OTP is disabled for demo purposes.
+          </p>
+          <form onSubmit={handleDemoProceed}>
+            <label htmlFor="demo-email" className="block mb-2 text-gray-300">Tester Email</label>
+            <input
+              type="email"
+              id="demo-email"
+              value={demoEmail}
+              onChange={(e) => setDemoEmail(e.target.value)}
+              className="w-full p-2 bg-gray-700 text-white rounded focus:outline-none focus:ring focus:ring-blue-600"
+              placeholder={DEMO_EMAIL}
+              required
+              autoComplete="email"
+              disabled={demoLoading}
+            />
+            <button
+              type="submit"
+              disabled={demoLoading}
+              className="w-full mt-4 bg-green-600 hover:bg-green-700 p-2 rounded font-bold text-white transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {demoLoading ? 'Opening Demo...' : 'Proceed to Demo'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

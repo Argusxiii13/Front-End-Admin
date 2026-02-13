@@ -20,6 +20,15 @@ const ProtectedRoute = () => {
   };
 
   const checkAuth = async () => {
+    const isDemoMode = localStorage.getItem('demoMode') === 'true';
+    const storedAdminInfo = localStorage.getItem('adminInfo');
+
+    if (isDemoMode && storedAdminInfo) {
+      setIsAuth(true);
+      setIsLoading(false);
+      return;
+    }
+
     const token = localStorage.getItem('authToken');
     console.log('Retrieved token:', token); // Log the retrieved token
     
@@ -35,7 +44,8 @@ const ProtectedRoute = () => {
     if (!isValid) {
       console.log('Invalid token. User will be redirected to login.');
       localStorage.removeItem('authToken'); // Clear invalid token
-      localStorage.removeItem('userInfo');
+      localStorage.removeItem('adminInfo');
+      localStorage.removeItem('demoMode');
     } else {
       console.log('Valid token. User is authenticated.');
     }
