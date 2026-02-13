@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_API_URL;
 const DEMO_EMAIL = 'autoconnectdemo13@gmail.com';
 
@@ -17,7 +16,6 @@ const OTPLoginPage = () => {
     cooldownRemaining: 0
   });
   const [loginLoading, setLoginLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     let timer;
@@ -80,8 +78,8 @@ const OTPLoginPage = () => {
 
       localStorage.setItem('authToken', response.data.token);
       localStorage.setItem('adminInfo', JSON.stringify(response.data.user));
-      
-      navigate('/overview');
+
+      window.location.assign('/overview');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid OTP');
       console.error('Login error:', err);
@@ -126,7 +124,7 @@ const OTPLoginPage = () => {
         picture: universalDemoAccount.picture,
       }));
 
-      navigate('/overview');
+      window.location.assign('/overview');
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Failed to initialize demo account');
       console.error('Demo account initialization error:', err);
