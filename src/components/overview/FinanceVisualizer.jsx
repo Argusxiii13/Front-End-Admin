@@ -9,7 +9,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -32,7 +31,6 @@ const FinanceVisualizer = () => {
 			const data = await response.json();
 			processBookingsData(data);
 		} catch (error) {
-			console.error("Error fetching bookings data:", error);
 		}
 	};
 
@@ -69,9 +67,6 @@ const FinanceVisualizer = () => {
 			start = range.start;
 			end = range.end;
 		}
-	
-		console.log('Start date:', start.toLocaleDateString());
-		console.log('End date:', end.toLocaleDateString());
 	
 		const datesToInclude = new Set();
 		datesToInclude.add(start.toLocaleDateString('en-CA')); // Using locale for YYYY-MM-DD
@@ -124,23 +119,19 @@ const FinanceVisualizer = () => {
 				start.setDate(today.getDate() - today.getDay());
 				end = new Date(today);
 				end.setDate(today.getDate() + (6 - today.getDay()));
-				console.log(start + end);
 				break;
 			case "This Month":
 				start = new Date(today.getFullYear(), today.getMonth(), 1);
 				end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-				console.log(start + end);
 				break;
 			case "This Quarter":
 				const quarter = Math.floor(today.getMonth() / 3);
 				start = new Date(today.getFullYear(), quarter * 3, 1);
 				end = new Date(today.getFullYear(), (quarter + 1) * 3, 0);
-				console.log(start + end);
 				break;
 			case "This Year":
 				start = new Date(today.getFullYear(), 0, 1);
 				end = new Date(today.getFullYear(), 11, 31);
-				console.log(start + end);
 				break;
 			default:
 				start = end = null;

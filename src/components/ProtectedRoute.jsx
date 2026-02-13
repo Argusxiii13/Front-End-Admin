@@ -11,10 +11,8 @@ const ProtectedRoute = () => {
   const validateToken = async (token) => {
     try {
       const response = await axios.post(`${apiUrl}/api/validate-token`, { token });
-      console.log('Token validation response:', response.data);
       return response.data.valid;
     } catch (error) {
-      console.error('Token validation error:', error);
       return false; // Return false on any error during validation
     }
   };
@@ -30,10 +28,8 @@ const ProtectedRoute = () => {
     }
 
     const token = localStorage.getItem('authToken');
-    console.log('Retrieved token:', token); // Log the retrieved token
     
     if (!token) {
-      console.log('No token found. User is not authenticated.');
       setIsAuth(false);
       setIsLoading(false);
       return;
@@ -42,12 +38,9 @@ const ProtectedRoute = () => {
     const isValid = await validateToken(token);
     
     if (!isValid) {
-      console.log('Invalid token. User will be redirected to login.');
       localStorage.removeItem('authToken'); // Clear invalid token
       localStorage.removeItem('adminInfo');
       localStorage.removeItem('demoMode');
-    } else {
-      console.log('Valid token. User is authenticated.');
     }
 
     setIsAuth(isValid);

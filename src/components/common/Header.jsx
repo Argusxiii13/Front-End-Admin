@@ -7,14 +7,12 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
 
 const adminInfo = getAdminInfo() || {};
 const role = adminInfo.admin_role || 'RAR';
-console.log(`From Header, Role : ${role}`);
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Header = ({ title }) => {
@@ -39,7 +37,6 @@ const Header = ({ title }) => {
             // Update unread notifications count
             setUnreadCount(unreadNotifications.length);
         } catch (err) {
-            console.error('Error fetching notifications:', err);
             setError('Failed to fetch notifications. Please try again.');
         } finally {
             setIsLoading(false);
@@ -58,7 +55,6 @@ const Header = ({ title }) => {
                 throw new Error('Failed to mark notifications as read');
             }
         } catch (err) {
-            console.error('Error marking notifications as read:', err);
         }
     };
 

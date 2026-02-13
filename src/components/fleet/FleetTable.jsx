@@ -16,7 +16,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -47,7 +46,6 @@ const FleetTable = () => {
             setCars(data);
             setFilteredCars(data);
         } catch (error) {
-            console.error('Error fetching car data:', error);
         }
     };
 
@@ -141,10 +139,8 @@ const FleetTable = () => {
                 if (response.ok) {
                     fetchCars();
                 } else {
-                    console.error('Failed to delete vehicle:', response.statusText);
                 }
             } catch (error) {
-                console.error('Error deleting vehicle:', error);
             }
             setCarToDelete(null);
         }

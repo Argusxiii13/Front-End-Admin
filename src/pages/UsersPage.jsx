@@ -13,7 +13,6 @@ const getAdminInfo = () => {
       const storedAdminInfo = localStorage.getItem('adminInfo');
       return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
   } catch (error) {
-      console.error('Error parsing admin info:', error);
       return null;
   }
 };
@@ -45,7 +44,6 @@ const UsersPage = () => {
           const data = await response.json();
           setUserStats(data);
       } catch (err) {
-          console.error('Error fetching user statistics:', err);
           setError(err.message || 'An unknown error occurred');
       } finally {
           setIsLoading(false);

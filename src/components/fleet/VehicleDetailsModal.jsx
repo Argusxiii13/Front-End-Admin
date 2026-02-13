@@ -8,7 +8,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -49,7 +48,6 @@ const VehicleDetailsModal = ({ vehicle, onClose, onUpdateSuccess, refresh }) => 
                     const parsedFeatures = JSON.parse(data.features || "[]");
                     setFeatures(parsedFeatures);
                 } catch (error) {
-                    console.error('Error fetching vehicle image:', error);
                     setImageError(true);
                 }
             };
@@ -121,7 +119,6 @@ const VehicleDetailsModal = ({ vehicle, onClose, onUpdateSuccess, refresh }) => 
                 onUpdateSuccess();
             }
         } catch (error) {
-            console.error('Error saving vehicle details:', error);
         } finally {
             setIsSaving(false);
         }

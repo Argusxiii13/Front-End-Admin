@@ -8,7 +8,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
   };
@@ -35,7 +34,6 @@ const UserPieChart = () => {
                 const data = await response.json();
                 setUserData(data); // Use the fetched data directly
             } catch (error) {
-                console.error('Error fetching user data:', error);
             }
         };
     

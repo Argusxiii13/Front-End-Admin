@@ -8,7 +8,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -17,7 +16,6 @@ const adminInfo = getAdminInfo() || {};
 const role = adminInfo.admin_role || 'RAR';
 
 const BookingModifyModal = ({ booking, isOpen, onClose }) => {
-    console.log(booking);
     const [cars, setCars] = useState([]);
     const [selectedCarId, setSelectedCarId] = useState('');
     const [formData, setFormData] = useState({
@@ -58,7 +56,6 @@ const BookingModifyModal = ({ booking, isOpen, onClose }) => {
                 const data = await response.json();
                 setCars(data);
             } catch (error) {
-                console.error('Error fetching car data:', error);
             }
         };
 
@@ -114,7 +111,6 @@ const BookingModifyModal = ({ booking, isOpen, onClose }) => {
             if (!response.ok) throw new Error('Network response was not ok');
             onClose();
         } catch (error) {
-            console.error('Error updating booking:', error);
         }
     };
 

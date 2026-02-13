@@ -10,7 +10,6 @@ const getAdminInfo = () => {
       const storedAdminInfo = localStorage.getItem('adminInfo');
       return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
   } catch (error) {
-      console.error('Error parsing admin info:', error);
       return null;
   }
 };
@@ -49,7 +48,6 @@ const OverviewCards = () => {
 
         const currentMonthBookings = bookings.filter(booking => {
           if (!booking.created_at) {
-            console.warn('Booking missing created_at:', booking);
             return false;
           }
           const bookingDate = new Date(booking.created_at);
@@ -58,7 +56,6 @@ const OverviewCards = () => {
 
         const lastMonthBookings = bookings.filter(booking => {
           if (!booking.created_at) {
-            console.warn('Booking missing created_at:', booking);
             return false;
           }
           const bookingDate = new Date(booking.created_at);
@@ -67,7 +64,6 @@ const OverviewCards = () => {
 
         const currentMonthUsers = users.filter(user => {
           if (!user.created_at) {
-            console.warn('User missing created_at:', user);
             return false;
           }
           const userDate = new Date(user.created_at);
@@ -76,7 +72,6 @@ const OverviewCards = () => {
 
         const lastMonthUsers = users.filter(user => {
           if (!user.created_at) {
-            console.warn('User missing created_at:', user);
             return false;
           }
           const userDate = new Date(user.created_at);
@@ -160,7 +155,6 @@ const OverviewCards = () => {
 
         setOverviewData(formattedOverviewData);
       } catch (error) {
-        console.error('Error fetching analytics data:', error);
         setError('Failed to load analytics data.');
       } finally {
         setLoading(false);

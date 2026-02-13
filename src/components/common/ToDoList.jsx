@@ -6,7 +6,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -32,7 +31,6 @@ const ToDoList = () => {
                 const data = await response.json();
                 setTasks(data.map(task => ({ ...task, isConfirming: false })));
             } catch (error) {
-                console.error('Error fetching tasks:', error);
             }
         };
 
@@ -62,7 +60,6 @@ const ToDoList = () => {
                 setIsInputOpen(false);
                 setCurrentPage(Math.ceil((tasks.length + 1) / rowsPerPage));
             } catch (error) {
-                console.error('Error adding task:', error);
             }
         }
     };
@@ -121,7 +118,6 @@ const ToDoList = () => {
                 return newTasks;
             });
         } catch (error) {
-            console.error('Error deleting task:', error);
         }
     };
 

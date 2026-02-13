@@ -12,7 +12,6 @@ const getAdminInfo = () => {
       const storedAdminInfo = localStorage.getItem('adminInfo');
       return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
   } catch (error) {
-      console.error('Error parsing admin info:', error);
       return null;
   }
 };
@@ -36,7 +35,6 @@ const SalesPage = () => {
             const data = await response.json();
             setSalesStats(data);
         } catch (error) {
-            console.error('Error fetching sales statistics:', error);
             setError('Failed to load sales statistics. Please try again later.');
         } finally {
             setLoading(false);

@@ -18,7 +18,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -38,11 +37,9 @@ const SettingsPage = () => {
         try {
             setIsLoading(true);
             const response = await axios.get(`${apiUrl}/api/admin/setting/audit-logs?role=${encodeURIComponent(role)}`);
-            console.log('Fetched logs:', response.data);
             setSecurityLogs(response.data);
             setIsSecurityLogModalOpen(true);
         } catch (err) {
-            console.error('Error fetching all security logs:', err);
             setError('Failed to load security logs');
         } finally {
             setIsLoading(false);
@@ -53,11 +50,9 @@ const SettingsPage = () => {
         try {
             setIsLoading(true);
             const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
-            console.log('Fetched notifications:', response.data);
             setNotifications(response.data);
             setIsNotificationsModalOpen(true);
         } catch (err) {
-            console.error('Error fetching notifications:', err);
             setError('Failed to load notifications');
         } finally {
             setIsLoading(false);

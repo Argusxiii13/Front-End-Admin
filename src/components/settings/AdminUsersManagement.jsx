@@ -13,7 +13,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -34,7 +33,6 @@ const AdminUsersManagement = () => {
                 const response = await axios.get(`${apiUrl}/api/admin/admins?role=${encodeURIComponent(role)}`);
                 setAdmins(response.data);
             } catch (err) {
-                console.error('Error fetching admin users:', err);
                 setError('Failed to load admin users');
             } finally {
                 setIsLoading(false);

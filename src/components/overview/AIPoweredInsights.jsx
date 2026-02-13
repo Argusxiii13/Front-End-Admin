@@ -10,7 +10,6 @@ const getAdminInfo = () => {
       const storedAdminInfo = localStorage.getItem('adminInfo');
       return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
   } catch (error) {
-      console.error('Error parsing admin info:', error);
       return null;
   }
 };
@@ -164,7 +163,6 @@ const AIPoweredInsights = () => {
 
         setInsights(dynamicInsights);
       } catch (error) {
-        console.error('Error fetching insights data:', error);
         setError('Failed to load insights.');
       } finally {
         setLoading(false);

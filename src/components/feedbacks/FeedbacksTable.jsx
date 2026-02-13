@@ -13,7 +13,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -38,11 +37,9 @@ const FeedbacksTable = () => {
             if (!response.ok) throw new Error('Network response was not ok');
             
             const data = await response.json();
-            console.log(data);
             setFeedbacks(data);
             setFilteredFeedbacks(data);
         } catch (error) {
-            console.error('Error fetching feedbacks:', error);
         }
     };
 

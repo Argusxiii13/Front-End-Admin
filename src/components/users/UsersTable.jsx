@@ -13,7 +13,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -53,7 +52,6 @@ const UsersTable = () => {
             setUsers(data);
             setFilteredUsers(data);
         } catch (error) {
-            console.error('Error fetching users:', error);
         }
     };
 

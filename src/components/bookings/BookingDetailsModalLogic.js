@@ -4,7 +4,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -48,13 +47,11 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
             
             setCarInfo(carInfoMap);
         } catch (error) {
-            console.error('Error fetching car details:', error);
         }
     };
     useEffect(() => {
             carDetails();
         }, []);
-    console.log(booking);
     const actionMessages = {
         finish: "Are you sure you want to mark this booking as finished?",
         confirm: "Are you sure you want to confirm this booking?",
@@ -89,7 +86,6 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
                 showToast(data.message || 'Failed to set booking to pending.', 'error');
             }
         } catch (error) {
-            console.error("Error updating booking status to pending:", error);
             showToast('Failed to update status. Please try again.', 'error');
         } finally {
             setLoading(false);
@@ -125,7 +121,6 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
                 showToast(data.message || 'Failed to finish booking.', 'error');
             }
         } catch (error) {
-            console.error("Error updating booking status:", error);
             showToast('Failed to update status. Please try again.', 'error');
         } finally {
             setLoading(false);
@@ -195,7 +190,6 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
                 onStatusUpdate({ ...invoiceDataResponse, ...confirmData });
             }
         } catch (error) {
-            console.error("Error confirming booking status:", error);
             showToast('Failed to confirm booking and send invoice. Please try again.', 'error');
         } finally {
             setLoading(false);
@@ -242,13 +236,11 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
                         onStatusUpdate(updatedData);
                     }
                 } else {
-                    console.error('Failed to fetch updated booking details:', updatedData.message);
                 }
             } else {
                 showToast(data.message || 'Failed to cancel booking.', 'error');
             }
         } catch (error) {
-            console.error("Error cancelling booking:", error);
             showToast('Failed to cancel booking. Please try again.', 'error');
         } finally {
             setLoading(false);

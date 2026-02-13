@@ -5,16 +5,13 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for redire
 const getAdminInfo = () => {
     try {
         const storedAdminInfo = localStorage.getItem('adminInfo');
-        console.log('Stored admin info:', storedAdminInfo);
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
 
 const adminInfo = getAdminInfo() || {};
-console.log('Parsed admin info:', adminInfo);
 
 const Profile = () => {
     const navigate = useNavigate(); // Initialize the navigation hook

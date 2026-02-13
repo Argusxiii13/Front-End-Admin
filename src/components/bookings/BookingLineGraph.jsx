@@ -6,7 +6,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -15,7 +14,6 @@ const adminInfo = getAdminInfo() || {};
 
 // Extract the role
 const role = adminInfo.admin_role || 'RAR'; // Provide a default value if role is not found
-console.log(`From Header, Role : ${role}`);
 const apiUrl = import.meta.env.VITE_API_URL;
 const COLOR_MAP = {
     Cancelled: "#FF0000", // Red
@@ -37,7 +35,6 @@ const BookingsLineGraph = () => {
                 const data = await response.json();
                 processBookingData(data); // Process data after fetching
             } catch (error) {
-                console.error('Error fetching booking data:', error);
             }
         };
 

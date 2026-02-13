@@ -12,7 +12,6 @@ const getAdminInfo = () => {
       const storedAdminInfo = localStorage.getItem('adminInfo');
       return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
   } catch (error) {
-      console.error('Error parsing admin info:', error);
       return null;
   }
 };
@@ -41,7 +40,6 @@ const FeedbacksPage = () => {
           }, {});
           setCarsDetail(carsMap);
       } catch (error) {
-          console.error('Error fetching cars detail:', error);
       }
   };
 
@@ -85,7 +83,6 @@ const FeedbacksPage = () => {
             setHighestRatedVehicle(highestRated);
         }
     } catch (error) {
-        console.error('Error fetching feedback stats:', error);
     }
 };
 
@@ -107,7 +104,6 @@ const fetchBookingStats = async () => {
           bookingsWithoutFeedback
       }));
   } catch (error) {
-      console.error('Error fetching booking stats:', error);
   }
 };
 

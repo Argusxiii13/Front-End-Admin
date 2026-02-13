@@ -14,7 +14,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -50,7 +49,6 @@ const BookingTable = () => {
             setBookings(data);
             setFilteredBookings(data);
         } catch (error) {
-            console.error('Error fetching bookings:', error);
         }
     };
 
@@ -142,7 +140,6 @@ const BookingTable = () => {
             // Generate the Excel file
             XLSX.writeFile(workbook, `bookings_export_${timestamp}.xlsx`);
         } catch (error) {
-            console.error('Download failed:', error);
             alert('Failed to download bookings. Please try again.');
         }
     };

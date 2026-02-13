@@ -7,7 +7,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -37,7 +36,6 @@ const BookingsOverviewToday = () => {
                 const data = await response.json();
                 setCategoryData(data);
             } catch (error) {
-                console.error('Error fetching category data:', error);
             }
         };
 

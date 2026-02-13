@@ -15,7 +15,6 @@ const getAdminInfo = () => {
       const storedAdminInfo = localStorage.getItem('adminInfo');
       return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
   } catch (error) {
-      console.error('Error parsing admin info:', error);
       return null;
   }
 };
@@ -61,7 +60,6 @@ const FleetPage = () => {
             
             setIsLoading(false);
         } catch (err) {
-            console.error('Error fetching fleet statistics:', err);
             setError('Failed to fetch fleet statistics');
             setIsLoading(false);
         }

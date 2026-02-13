@@ -9,7 +9,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
   };
@@ -28,7 +27,6 @@ const Notifications = ({ onViewAll }) => {
                 const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
                 setNotifications(response.data.slice(0, 5)); // Display first 5 notifications initially
             } catch (err) {
-                console.error('Error fetching notifications:', err);
                 setError('Failed to load notifications');
             } finally {
                 setIsLoading(false);

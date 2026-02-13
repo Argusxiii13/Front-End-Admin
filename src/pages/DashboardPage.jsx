@@ -12,7 +12,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -42,7 +41,6 @@ const DashboardPage = () => {
                 const data = await response.json();
                 setTotalBookings(`${data.total}`);
             } catch (error) {
-                console.error('Error fetching total bookings:', error);
                 setError('Failed to load total bookings.');
             }
         };
@@ -56,7 +54,6 @@ const DashboardPage = () => {
                 const data = await response.json();
                 setTotalUsers(`${data.total}`);
             } catch (error) {
-                console.error('Error fetching total users:', error);
                 setError('Failed to load total users.');
             }
         };
@@ -70,7 +67,6 @@ const DashboardPage = () => {
                 const data = await response.json();
                 setNewFeedbackCount(`${data.total}`);
             } catch (error) {
-                console.error('Error fetching new feedback count:', error);
                 setError('Failed to load new feedback count.');
             }
         };
@@ -84,7 +80,6 @@ const DashboardPage = () => {
                 const data = await response.json();
                 setTodayRevenue(`${data.total}`); // Ensure it's treated as a string
             } catch (error) {
-                console.error('Error fetching today\'s revenue:', error);
                 setError('Failed to load today\'s revenue.');
             }
         };

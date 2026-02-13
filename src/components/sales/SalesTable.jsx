@@ -12,7 +12,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -53,7 +52,6 @@ const SalesTable = () => {
             setSales(data);
             setFilteredSales(data); // Initialize filtered sales
         } catch (error) {
-            console.error('Error fetching sales:', error);
         }
     };
     const carDetails = async () => {
@@ -84,7 +82,6 @@ const SalesTable = () => {
             
             setCarInfo(carInfoMap);
         } catch (error) {
-            console.error('Error fetching car details:', error);
         }
     };
 
@@ -206,10 +203,7 @@ const SalesTable = () => {
     const handleGenerateInvoice = async (sale) => {
         if (!sale) return;
         const car = carInfo[sale.car_id];
-        console.log(sale.car_id);
-        console.log(car);
     if (!car) {
-        console.error('Car information not found');
         return;
     }
         // Extract necessary data from the sale object
@@ -225,8 +219,6 @@ const SalesTable = () => {
             price: sale.price,
             driver: car.driver || 'No driver assigned' // Including driver information
         };
-    
-        console.log('Invoice Data:', invoiceData); // Log the data
     
         try {
             const response = await fetch(`${apiUrl}/api/generate-invoice`, {
@@ -252,7 +244,6 @@ const SalesTable = () => {
             a.remove();
             window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error('Error generating invoice:', error);
         }
     };
 

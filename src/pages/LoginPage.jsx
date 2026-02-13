@@ -61,7 +61,6 @@ const OTPLoginPage = () => {
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to send OTP');
       setOtpSendStatus(prev => ({ ...prev, sending: false, canSend: true }));
-      console.error('OTP send error:', err);
     }
   };
 
@@ -82,7 +81,6 @@ const OTPLoginPage = () => {
       window.location.assign('/overview');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid OTP');
-      console.error('Login error:', err);
     } finally {
       setLoginLoading(false);
     }
@@ -127,7 +125,6 @@ const OTPLoginPage = () => {
       window.location.assign('/overview');
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Failed to initialize demo account');
-      console.error('Demo account initialization error:', err);
     } finally {
       setDemoLoading(false);
     }

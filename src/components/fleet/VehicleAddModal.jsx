@@ -8,7 +8,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -54,7 +53,6 @@ const VehicleAddModal = ({ onClose, onAddSuccess }) => {
                 setTransmissions(data.transmissions);
                 setTypes(data.types);
             } catch (error) {
-                console.error('Error fetching dropdown data:', error);
             }
         };
 
@@ -164,7 +162,6 @@ const VehicleAddModal = ({ onClose, onAddSuccess }) => {
                 onAddSuccess();
             }
         } catch (error) {
-            console.error('Error adding vehicle details:', error);
         } finally {
             setIsSaving(false);
         }

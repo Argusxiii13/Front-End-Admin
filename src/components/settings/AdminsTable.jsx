@@ -29,7 +29,6 @@ const AdminsTable = () => {
             setAdmins(data);
             setFilteredAdmins(data);
         } catch (error) {
-            console.error('Error fetching admins:', error);
         }
     };
 
@@ -68,10 +67,8 @@ const AdminsTable = () => {
                 setAdmins((prev) => [...prev, addedUser]);
                 setFilteredAdmins((prev) => [...prev, addedUser]);
             } else {
-                console.error('Failed to add user');
             }
         } catch (error) {
-            console.error('Error adding user:', error);
         }
     };
 
@@ -86,10 +83,8 @@ const AdminsTable = () => {
                 setAdmins((prev) => prev.filter((admin) => admin.id !== id));
                 setFilteredAdmins((prev) => prev.filter((admin) => admin.id !== id));
             } else {
-                console.error('Failed to delete user');
             }
         } catch (error) {
-            console.error('Error deleting user:', error);
         }
     };
 

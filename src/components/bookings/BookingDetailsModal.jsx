@@ -14,7 +14,6 @@ const getAdminInfo = () => {
         const storedAdminInfo = localStorage.getItem('adminInfo');
         return storedAdminInfo ? JSON.parse(storedAdminInfo) : null;
     } catch (error) {
-        console.error('Error parsing admin info:', error);
         return null;
     }
 };
@@ -64,7 +63,6 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
             const updatedBookingData = await response.json();
             setCurrentBooking(updatedBookingData);
         } catch (error) {
-            console.error('Error fetching updated booking details:', error);
         }
     };
 
@@ -80,7 +78,6 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
             const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         } catch (error) {
-            console.error('Error formatting date:', error);
             return '';
         }
     };
@@ -120,7 +117,6 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
                 const data = await response.json();
                 setCars(data);
             } catch (error) {
-                console.error('Error fetching car data:', error);
             }
         };
 
@@ -143,10 +139,8 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
                 setReceiptUrl(url);
             } else {
                 setReceiptUrl(backupReceiptUrl);
-                console.warn('No receipt found, using backup image');
             }
         } catch (error) {
-            console.error('Error fetching receipt:', error);
             setReceiptUrl(backupReceiptUrl);
         }
     };
@@ -236,7 +230,6 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
             setPriceModalOpen(false);
 
         } catch (error) {
-            console.error('Error notifying price:', error);
             showToast('Failed to notify price.', 'error');
         }
     };
