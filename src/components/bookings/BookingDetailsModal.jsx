@@ -238,6 +238,9 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
 
     return createPortal(
         <>
+            {loading && (
+                <div className="fixed inset-0 z-[10000] cursor-wait" aria-hidden="true" />
+            )}
             <div className="modal">
                 <div className="modal-content w-700 h-700 overflow-auto">
                     <h2 className="modal-title text-lg font-semibold mb-4">Booking Details</h2>

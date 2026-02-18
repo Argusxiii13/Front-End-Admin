@@ -48,6 +48,7 @@ const NotificationsModal = ({
     };
 
     const handleMarkAllAsRead = () => {
+        if (notifications.length === 0) return;
         const allNotificationIds = notifications.map(n => n.m_id);
         onMarkAsRead(allNotificationIds);
         setSelectedNotifications([]);
@@ -122,7 +123,8 @@ const NotificationsModal = ({
                 <div className="p-4">
                     <button
                         onClick={handleMarkAllAsRead}
-                        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                        disabled={notifications.length === 0}
+                        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
                     >
                         Mark All as Read
                     </button>
