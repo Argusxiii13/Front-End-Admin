@@ -7,6 +7,8 @@ import BookingsOverviewToday from '../components/dashboard/BookingsOverviewToday
 import OngoingBookings from '../components/dashboard/OngoingBookings';
 import EarningsMadeToday from '../components/dashboard/EarningsMadeToday';
 import ToDoList from '../components/common/ToDoList'; // Import ToDoList
+import { fetchWithRetry } from '../lib/RetryUtil';
+
 const getAdminInfo = () => {
     try {
         const storedAdminInfo = localStorage.getItem('adminInfo');
@@ -34,7 +36,9 @@ const DashboardPage = () => {
     useEffect(() => {
         const fetchTotalBookings = async (role) => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/dashboard/new-bookings?role=${encodeURIComponent(role)}`);
+                const response = await fetchWithRetry(() =>
+                    fetch(`${apiUrl}/api/admin/dashboard/new-bookings?role=${encodeURIComponent(role)}`)
+                );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -47,7 +51,9 @@ const DashboardPage = () => {
 
         const fetchTotalUsers = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/dashboard/new-users?role=${encodeURIComponent(role)}`);
+                const response = await fetchWithRetry(() =>
+                    fetch(`${apiUrl}/api/admin/dashboard/new-users?role=${encodeURIComponent(role)}`)
+                );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -60,7 +66,9 @@ const DashboardPage = () => {
 
         const fetchNewFeedbackCount = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/dashboard/new-feedback-count?role=${encodeURIComponent(role)}`);
+                const response = await fetchWithRetry(() =>
+                    fetch(`${apiUrl}/api/admin/dashboard/new-feedback-count?role=${encodeURIComponent(role)}`)
+                );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -73,7 +81,9 @@ const DashboardPage = () => {
 
         const fetchTodayRevenue = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/dashboard/today-revenue?role=${encodeURIComponent(role)}`);
+                const response = await fetchWithRetry(() =>
+                    fetch(`${apiUrl}/api/admin/dashboard/today-revenue?role=${encodeURIComponent(role)}`)
+                );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

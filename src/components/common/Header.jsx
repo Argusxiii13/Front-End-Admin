@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Bell } from 'lucide-react';
 import axios from 'axios';
 import NotificationsModal from './NotificationsModal';
+import { getSocket } from '../../lib/socket';
+
 const getAdminInfo = () => {
     try {
         const storedAdminInfo = localStorage.getItem('adminInfo');
@@ -22,39 +24,50 @@ const Header = ({ title }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Fetch notifications function
-    const fetchNotifications = async () => {
+    // Fetch notifications function with retry logic
+    const fetchNotifications = async (retries = 2) => {
         setIsLoading(true);
         setError(null);
-        try {
-            const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
-            const fetchedNotifications = response.data;
+        let attempt = 0;
 
-            // Filter unread notifications
-            const unreadNotifications = fetchedNotifications.filter(notification => !notification.read);
-            setNotifications(unreadNotifications);
+        while (attempt <= retries) {
+            try {
+                const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
+                const fetchedNotifications = response.data;
 
-            // Update unread notifications count
-            setUnreadCount(unreadNotifications.length);
-        } catch (err) {
-            setError('Failed to fetch notifications. Please try again.');
-        } finally {
-            setIsLoading(false);
+                // Filter unread notifications
+                const unreadNotifications = fetchedNotifications.filter(notification => !notification.read);
+                setNotifications(unreadNotifications);
+
+                // Update unread notifications count
+                setUnreadCount(unreadNotifications.length);
+                setIsLoading(false);
+                return;
+            } catch (err) {
+                if (attempt === retries) {
+                    setError('Failed to fetch notifications. Please try again.');
+                    setIsLoading(false);
+                    return;
+                }
+                attempt++;
+                // Wait before retrying (exponential backoff)
+                await new Promise(resolve => setTimeout(resolve, 250 * (attempt + 1)));
+            }
         }
     };
 
-    // Mark as read function
+    // Mark as read function with retry logic
     const handleMarkAsRead = async (ids) => {
-    
         try {
             const response = await axios.post(`${apiUrl}/api/admin/setting/notifications/mark-as-read?role=${encodeURIComponent(role)}`, { ids });
             
             if (response.status === 200) {
-                fetchNotifications(); // Optionally refetch notifications to get the updated list
+                fetchNotifications(); // Refetch notifications to get the updated list
             } else {
                 throw new Error('Failed to mark notifications as read');
             }
         } catch (err) {
+            console.error('Error marking notifications as read:', err);
         }
     };
 
@@ -69,20 +82,43 @@ const Header = ({ title }) => {
         setIsNotificationsOpen(false);
     };
 
-    // Fetch notifications when the component mounts
+    // Set up real-time socket.io updates and fallback polling
     useEffect(() => {
-        fetchNotifications(); // Initial fetch
+        // Initial fetch
+        fetchNotifications();
 
-        // Set up an interval to fetch notifications every 5 seconds, only if the modal is not open
+        // Set up socket.io for real-time updates
+        const socket = getSocket();
+        const adminId = adminInfo.admin_id || adminInfo.id;
+        
+        if (adminId) {
+            socket.emit('join-admin-room', adminId);
+
+            const onRealtimeUpdate = (payload) => {
+                if (!payload || String(payload.admin_id) !== String(adminId)) return;
+                fetchNotifications();
+            };
+
+            socket.on('admin:notification-update', onRealtimeUpdate);
+
+            return () => {
+                socket.off('admin:notification-update', onRealtimeUpdate);
+            };
+        }
+    }, []);
+
+    // Fallback polling interval for reliability
+    useEffect(() => {
+        // Set up fallback interval to fetch notifications every 10 seconds for reliability
         const intervalId = setInterval(() => {
             if (!isNotificationsOpen) {
                 fetchNotifications();
             }
-        }, 5000);
+        }, 10000);
 
         // Clean up interval on component unmount
         return () => clearInterval(intervalId);
-    }, [isNotificationsOpen]); // Dependency array includes isNotificationsOpen
+    }, [isNotificationsOpen]);
 
     return (
         <>
