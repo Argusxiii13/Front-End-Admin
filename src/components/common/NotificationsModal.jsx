@@ -15,7 +15,7 @@ const NotificationsModal = ({
 
     if (isLoading) {
         return (
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center">
                 <div className="bg-gray-800 p-6 rounded-lg w-96">
                     <p className="text-gray-300 text-center">Loading notifications...</p>
                 </div>
@@ -25,7 +25,7 @@ const NotificationsModal = ({
 
     if (error) {
         return (
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center">
                 <div className="bg-gray-800 p-6 rounded-lg w-96">
                     <p className="text-red-500 text-center mb-4">{error}</p>
                     <button 
@@ -65,7 +65,7 @@ const NotificationsModal = ({
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center">
             <div className="bg-gray-800 rounded-lg w-[500px] max-h-[80vh] flex flex-col">
                 {/* Header */}
                 <div className="flex justify-between items-center p-4 border-b border-gray-700">

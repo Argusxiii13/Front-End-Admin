@@ -41,7 +41,7 @@ const BookingTable = () => {
 
     const fetchBookings = async () => {
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/bookings-table?role=${encodeURIComponent(role)}`);
+            const response = await fetch(`${apiUrl}/api/admin/bookings/bookings-table?role=${encodeURIComponent(role)}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

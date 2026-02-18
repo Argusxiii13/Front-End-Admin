@@ -24,7 +24,7 @@ const Notifications = ({ onViewAll }) => {
         const fetchNotifications = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
+                const response = await axios.get(`${apiUrl}/api/admin/settings/notifications?role=${encodeURIComponent(role)}`);
                 setNotifications(response.data.slice(0, 5)); // Display first 5 notifications initially
             } catch (err) {
                 setError('Failed to load notifications');

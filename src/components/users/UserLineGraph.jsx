@@ -24,7 +24,7 @@ const UserLineGraph = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/user/line-graph?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/users/line-graph?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

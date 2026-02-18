@@ -26,7 +26,7 @@ const BookingsPieChart = () => {
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/booking/pie-chart?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/bookings/pie-chart?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

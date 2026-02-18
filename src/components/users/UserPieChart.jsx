@@ -27,7 +27,7 @@ const UserPieChart = () => {
         const fetchUserData = async () => {
     
             try {
-                const response = await fetch(`${apiUrl}/api/admin/user/pie-chart?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/users/pie-chart?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

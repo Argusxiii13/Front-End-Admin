@@ -32,7 +32,7 @@ const Header = ({ title }) => {
 
         while (attempt <= retries) {
             try {
-                const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
+                const response = await axios.get(`${apiUrl}/api/admin/settings/notifications?role=${encodeURIComponent(role)}`);
                 const fetchedNotifications = response.data;
 
                 // Filter unread notifications
@@ -59,7 +59,7 @@ const Header = ({ title }) => {
     // Mark as read function with retry logic
     const handleMarkAsRead = async (ids) => {
         try {
-            const response = await axios.post(`${apiUrl}/api/admin/setting/notifications/mark-as-read?role=${encodeURIComponent(role)}`, { ids });
+            const response = await axios.post(`${apiUrl}/api/admin/settings/notifications/mark-as-read?role=${encodeURIComponent(role)}`, { ids });
             
             if (response.status === 200) {
                 fetchNotifications(); // Refetch notifications to get the updated list

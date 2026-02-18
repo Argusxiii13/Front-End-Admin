@@ -35,7 +35,7 @@ const BookingsPage = () => {
     useEffect(() => {
         const fetchStatistics = async () => {
             try {   
-                const response = await fetch(`${apiUrl}/api/admin/booking/statistics?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/bookings/statistics?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

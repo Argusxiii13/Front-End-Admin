@@ -49,7 +49,7 @@ const BookingModifyModal = ({ booking, isOpen, onClose }) => {
     useEffect(() => {
         const fetchCars = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/booking/car-dropdown?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/bookings/car-dropdown?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -100,7 +100,7 @@ const BookingModifyModal = ({ booking, isOpen, onClose }) => {
         };
 
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/update/${booking.booking_id}`, {
+            const response = await fetch(`${apiUrl}/api/admin/bookings/update/${booking.booking_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -56,7 +56,7 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
         if (!currentBooking?.booking_id) return;
     
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/details/${currentBooking.booking_id}?role=${encodeURIComponent(role)}`);
+            const response = await fetch(`${apiUrl}/api/admin/bookings/details/${currentBooking.booking_id}?role=${encodeURIComponent(role)}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -110,7 +110,7 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
     useEffect(() => {
         const fetchCars = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/booking/cars?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/bookings/cars?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -132,7 +132,7 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
 
     const fetchReceipt = async (booking_id) => {
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/receipt-retrieve/${booking_id}?role=${encodeURIComponent(role)}`);
+            const response = await fetch(`${apiUrl}/api/admin/bookings/receipt-retrieve/${booking_id}?role=${encodeURIComponent(role)}`);
             if (response.ok) {
                 const blob = await response.blob();
                 const url = URL.createObjectURL(blob);
@@ -205,7 +205,7 @@ const BookingDetailsModal = ({ booking, isOpen, onClose, onStatusUpdate }) => {
 
     const handlePriceConfirm = async (price) => {
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/notify-price`, {
+            const response = await fetch(`${apiUrl}/api/admin/bookings/notify-price`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

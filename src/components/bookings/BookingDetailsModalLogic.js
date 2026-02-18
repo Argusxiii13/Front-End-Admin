@@ -61,7 +61,7 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
     const handlePending = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/pending/${bookingId}`, {
+            const response = await fetch(`${apiUrl}/api/admin/bookings/pending/${bookingId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
     const handleFinished = async (totalExpenses) => {
         setLoading(true);
         try {
-            const response = await fetch(`${apiUrl}/api/admin/booking/finish/${bookingId}`, {
+            const response = await fetch(`${apiUrl}/api/admin/bookings/finish/${bookingId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
             }
     
             // Now confirm the booking
-            const confirmResponse = await fetch(`${apiUrl}/api/admin/booking/confirm/${booking.booking_id}`, {
+            const confirmResponse = await fetch(`${apiUrl}/api/admin/bookings/confirm/${booking.booking_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
                 return;
             }
 
-            const response = await fetch(`${apiUrl}/api/admin/booking/cancel/${bookingId}`, {
+            const response = await fetch(`${apiUrl}/api/admin/bookings/cancel/${bookingId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, bookin
                 
             
                 // Fetch the updated booking details after canceling
-                const updatedResponse = await fetch(`${apiUrl}/api/admin/booking/details/${bookingId}?role=${encodeURIComponent(role)}`);
+                const updatedResponse = await fetch(`${apiUrl}/api/admin/bookings/details/${bookingId}?role=${encodeURIComponent(role)}`);
                 const updatedData = await updatedResponse.json();
             
                 if (updatedResponse.ok) {

@@ -24,7 +24,7 @@ const Security = ({ onViewLogs }) => {
         const fetchLogs = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`${apiUrl}/api/admin/setting/audit-logs?role=${encodeURIComponent(role)}`);
+                const response = await axios.get(`${apiUrl}/api/admin/settings/audit-logs?role=${encodeURIComponent(role)}`);
                 setLogs(response.data.slice(0, 5)); // Display first 5 logs initially
             } catch (err) {
                 setError('Failed to load security logs');

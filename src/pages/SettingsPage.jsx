@@ -36,7 +36,7 @@ const SettingsPage = () => {
     const fetchAllLogs = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`${apiUrl}/api/admin/setting/audit-logs?role=${encodeURIComponent(role)}`);
+            const response = await axios.get(`${apiUrl}/api/admin/settings/audit-logs?role=${encodeURIComponent(role)}`);
             setSecurityLogs(response.data);
             setIsSecurityLogModalOpen(true);
         } catch (err) {
@@ -49,7 +49,7 @@ const SettingsPage = () => {
     const fetchNotifications = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`${apiUrl}/api/admin/setting/notifications?role=${encodeURIComponent(role)}`);
+            const response = await axios.get(`${apiUrl}/api/admin/settings/notifications?role=${encodeURIComponent(role)}`);
             setNotifications(response.data);
             setIsNotificationsModalOpen(true);
         } catch (err) {

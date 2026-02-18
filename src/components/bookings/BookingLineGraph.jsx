@@ -28,7 +28,7 @@ const BookingsLineGraph = () => {
     useEffect(() => {
         const fetchBookingData = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/admin/booking/line-graph?role=${encodeURIComponent(role)}`);
+                const response = await fetch(`${apiUrl}/api/admin/bookings/line-graph?role=${encodeURIComponent(role)}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
