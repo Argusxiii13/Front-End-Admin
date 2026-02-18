@@ -34,7 +34,7 @@ const DashboardPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchTotalBookings = async (role) => {
+        const fetchTotalBookings = async () => {
             try {
                 const response = await fetchWithRetry(() =>
                     fetch(`${apiUrl}/api/admin/dashboard/new-bookings?role=${encodeURIComponent(role)}`)

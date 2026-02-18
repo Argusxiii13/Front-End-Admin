@@ -10,7 +10,7 @@ const getAdminInfo = () => {
 
 // Get the role from adminInfo
 const adminInfo = getAdminInfo() || {};
-const role = adminInfo.role || 'defaultRole'; // Adjust as necessary
+const role = adminInfo.admin_role || 'RAR';
 
 
 export const useBookingDetailsLogic = (apiUrl, bookingId, user_id, email, booking, onStatusUpdate, showToast) => {
