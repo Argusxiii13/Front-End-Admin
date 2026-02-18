@@ -8,10 +8,14 @@ export const getSocket = () => {
   const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5174';
   
   socketInstance = io(baseUrl, {
-    transports: ['polling', 'websocket'],
+    transports: ['websocket'],
     autoConnect: true,
-    reconnectionAttempts: 5,
+    reconnection: false,
     timeout: 10000,
+  });
+
+  socketInstance.on('connect_error', () => {
+    socketInstance.disconnect();
   });
 
   return socketInstance;
